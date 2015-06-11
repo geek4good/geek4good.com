@@ -29,6 +29,14 @@ activate :blog do |blog|
   # blog.page_link = "page/{num}"
 end
 
+activate :deploy do |deploy|
+  deploy.method = :rsync
+  deploy.host   = "geek4good.com"
+  deploy.path   = "/home/geek4good"
+  deploy.user   = "geek4good"
+  deploy.clean  = true
+end
+
 page "/feed.xml", layout: false
 
 ###
@@ -68,9 +76,6 @@ page "/feed.xml", layout: false
 # Automatic image dimensions on image_tag helper
 # activate :automatic_image_sizes
 
-# Reload the browser automatically whenever files change
-# activate :livereload
-
 # Methods defined in the helpers block are available in templates
 # helpers do
 #   def some_helper
@@ -83,6 +88,11 @@ set :css_dir, 'stylesheets'
 set :js_dir, 'javascripts'
 
 set :images_dir, 'images'
+
+configure :development do
+  # Reload the browser automatically whenever files change
+  activate :livereload
+end
 
 # Build-specific configuration
 configure :build do
